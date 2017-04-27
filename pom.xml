@@ -93,6 +93,8 @@
     </dependencies>
 
     <build>
+        <testSourceDirectory>src/test/groovy</testSourceDirectory>
+    
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

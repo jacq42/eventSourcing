@@ -20,7 +20,7 @@ import spock.lang.Specification
 
 @ContextConfiguration
 @SpringBootTest(classes = EventSourcingApplication, webEnvironment = RANDOM_PORT)
-class EventstoreexampleSpec extends Specification {
+class EventSourcingApplicationSpec extends Specification {
 
     private static final String ID = "123456"
 

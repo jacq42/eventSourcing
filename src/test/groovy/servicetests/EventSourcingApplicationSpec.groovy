@@ -12,9 +12,9 @@ import org.springframework.test.context.ContextConfiguration
 
 import de.jkrech.test.axon.EventSourcingApplication
 import de.jkrech.test.axon.cmd.CreateCustomerCommand
-import de.jkrech.test.axon.cmd.CreatePaybackCommand
+import de.jkrech.test.axon.cmd.CreateSubEntityCommand
 import de.jkrech.test.axon.cmd.UpdateCustomerCommand
-import de.jkrech.test.axon.cmd.UpdatePaybackCommand
+import de.jkrech.test.axon.cmd.UpdateSubEntityCommand
 
 import spock.lang.Specification
 
@@ -33,12 +33,12 @@ class EventSourcingApplicationSpec extends Specification {
     def setup() {
     }
 
-    def "creating a customer with payback"() {
+    def "creating a customer with a sub entity"() {
         when:
         commandBus.dispatch(asCommandMessage(createCustomerCommand()), LoggingCallback.INSTANCE)
         commandBus.dispatch(asCommandMessage(updateCustomerCommand()), LoggingCallback.INSTANCE)
-        commandBus.dispatch(asCommandMessage(createPaybackCommand()), LoggingCallback.INSTANCE)
-        commandBus.dispatch(asCommandMessage(updatePaybackCommand()), LoggingCallback.INSTANCE)
+        commandBus.dispatch(asCommandMessage(createSubEntityCommand()), LoggingCallback.INSTANCE)
+        commandBus.dispatch(asCommandMessage(updateSubEntityCommand()), LoggingCallback.INSTANCE)
         commandBus.dispatch(asCommandMessage(updateCustomerCommand(ID, "fancy name")), LoggingCallback.INSTANCE)
 
         then:
@@ -53,11 +53,11 @@ class EventSourcingApplicationSpec extends Specification {
         return new UpdateCustomerCommand(id, name)
     }
 
-    CreatePaybackCommand createPaybackCommand(String id = ID, String paybackCustomerNumber = "1234567890") {
-        return new CreatePaybackCommand(id, paybackCustomerNumber)
+    CreateSubEntityCommand createSubEntityCommand(String id = ID, String subEntityNumber = "1234567890") {
+        return new CreateSubEntityCommand(id, subEntityNumber)
     }
 
-    UpdatePaybackCommand updatePaybackCommand(String id = ID, String paybackCustomerNumber = "4567890123") {
-        return new UpdatePaybackCommand(id, paybackCustomerNumber)
+    UpdateSubEntityCommand updateSubEntityCommand(String id = ID, String subEntityNumber = "4567890123") {
+        return new UpdateSubEntityCommand(id, subEntityNumber)
     }
 }

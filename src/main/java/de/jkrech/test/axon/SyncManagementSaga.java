@@ -16,8 +16,8 @@ import de.jkrech.test.axon.cmd.SyncCommand;
 import de.jkrech.test.axon.event.CustomerCreatedEvent;
 import de.jkrech.test.axon.event.CustomerSyncedEvent;
 import de.jkrech.test.axon.event.CustomerUpdatedEvent;
-import de.jkrech.test.axon.event.PaybackCreatedEvent;
-import de.jkrech.test.axon.event.PaybackUpdatedEvent;
+import de.jkrech.test.axon.event.SubEntityCreatedEvent;
+import de.jkrech.test.axon.event.SubEntityUpdatedEvent;
 
 @Saga
 public class SyncManagementSaga {
@@ -47,15 +47,15 @@ public class SyncManagementSaga {
 
     @StartSaga
     @SagaEventHandler(associationProperty = "id")
-    public void on(PaybackCreatedEvent event) {
-        LOGGER.info("SYNC START CREATE PAYBACK");
+    public void on(SubEntityCreatedEvent event) {
+        LOGGER.info("SYNC START CREATE SUB ENTITY");
         createSyncCommand(event.getId());
     }
 
     @StartSaga
     @SagaEventHandler(associationProperty = "id")
-    public void on(PaybackUpdatedEvent event) {
-        LOGGER.info("SYNC START UPDATE PAYBACK");
+    public void on(SubEntityUpdatedEvent event) {
+        LOGGER.info("SYNC START UPDATE SUB ENTITY");
         createSyncCommand(event.getId());
     }
 

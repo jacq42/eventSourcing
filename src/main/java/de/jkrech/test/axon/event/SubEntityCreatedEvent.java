@@ -1,21 +1,21 @@
 package de.jkrech.test.axon.event;
 
-public class PaybackUpdatedEvent {
+public class SubEntityCreatedEvent {
 
     private String id;
-    private String paybackCustomerNumber;
+    private String subEntityNumber;
 
-    public PaybackUpdatedEvent(String id, String paybackCustomerNumber) {
+    public SubEntityCreatedEvent(String id, String subEntityNumber) {
         this.id = id;
-        this.paybackCustomerNumber = paybackCustomerNumber;
+        this.subEntityNumber = subEntityNumber;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getPaybackCustomerNumber() {
-        return paybackCustomerNumber;
+    public String getSubEntityNumber() {
+        return subEntityNumber;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class PaybackUpdatedEvent {
         StringBuilder sb = new StringBuilder();
         sb.append("eventType=").append(getClass().getSimpleName())
             .append(", id=").append(id)
-            .append(", paybackCustomerNumber=").append(paybackCustomerNumber);
+            .append(", subEntityNumber=").append(subEntityNumber);
         return sb.toString();
     }
 }

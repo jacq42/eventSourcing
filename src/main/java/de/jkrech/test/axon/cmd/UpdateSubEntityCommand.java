@@ -2,24 +2,24 @@ package de.jkrech.test.axon.cmd;
 
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 
-public class UpdatePaybackCommand {
+public class UpdateSubEntityCommand {
 
     @TargetAggregateIdentifier
     private String id;
 
-    private String paybackCustomerNumber;
+    private String subEntityNumber;
 
-    public UpdatePaybackCommand(String id, String paybackCustomerNumber) {
+    public UpdateSubEntityCommand(String id, String subEntityNumber) {
         this.id = id;
-        this.paybackCustomerNumber = paybackCustomerNumber;
+        this.subEntityNumber = subEntityNumber;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getPaybackCustomerNumber() {
-        return paybackCustomerNumber;
+    public String getSubEntityNumber() {
+        return subEntityNumber;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class UpdatePaybackCommand {
         StringBuilder sb = new StringBuilder();
         sb.append("cmdType=").append(getClass().getSimpleName())
             .append(", id=").append(id)
-            .append(", paybackCustomerNumber=").append(paybackCustomerNumber);
+            .append(", subEntityNumber=").append(subEntityNumber);
         return sb.toString();
     }
 }

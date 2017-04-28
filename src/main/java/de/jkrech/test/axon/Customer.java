@@ -14,8 +14,8 @@ import de.jkrech.test.axon.cmd.CreateCustomerCommand;
 import de.jkrech.test.axon.event.CustomerCreatedEvent;
 import de.jkrech.test.axon.event.CustomerSyncedEvent;
 import de.jkrech.test.axon.event.CustomerUpdatedEvent;
-import de.jkrech.test.axon.event.PaybackCreatedEvent;
-import de.jkrech.test.axon.event.PaybackUpdatedEvent;
+import de.jkrech.test.axon.event.SubEntityCreatedEvent;
+import de.jkrech.test.axon.event.SubEntityUpdatedEvent;
 
 @Aggregate
 public class Customer {
@@ -28,7 +28,7 @@ public class Customer {
     private String name;
 
     @AggregateMember
-    private Payback paybackAggregate;
+    private SubEntity subEntity;
 
     Customer() {
     }
@@ -47,13 +47,13 @@ public class Customer {
         apply(new CustomerUpdatedEvent(id, name));
     }
 
-    public void createPayback(String paybackCustomerNumber) {
-        apply(new PaybackCreatedEvent(this.id, paybackCustomerNumber));
+    public void createSubEntity(String subEntityNumber) {
+        apply(new SubEntityCreatedEvent(this.id, subEntityNumber));
     }
 
-    public void updatePayback(String paybackCustomerNumber) {
-        if(this.paybackAggregate != null) {
-            apply(new PaybackUpdatedEvent(this.id, paybackCustomerNumber));
+    public void updateSubEntity(String subEntityNumber) {
+        if(this.subEntity != null) {
+            apply(new SubEntityUpdatedEvent(this.id, subEntityNumber));
         }
     }
 
@@ -80,9 +80,9 @@ public class Customer {
     }
 
     @EventSourcingHandler
-    public void handlePaybackCreated(PaybackCreatedEvent event) {
+    public void handleSubEntityCreated(SubEntityCreatedEvent event) {
         LOGGER.info("Received event: {}", event);
-        this.paybackAggregate = new Payback();
+        this.subEntity = new SubEntity();
     }
 
     // --
@@ -92,7 +92,7 @@ public class Customer {
         StringBuilder sb = new StringBuilder("CUSTOMER +++ ");
         sb.append("id=").append(this.id)
             .append(", name=").append(this.name)
-            .append(" > ").append(paybackAggregate);
+            .append(" > ").append(subEntity);
         return sb.toString();
     }
 }

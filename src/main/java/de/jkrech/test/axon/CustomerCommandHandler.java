@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.jkrech.test.axon.cmd.CreatePaybackCommand;
+import de.jkrech.test.axon.cmd.CreateSubEntityCommand;
 import de.jkrech.test.axon.cmd.SyncCommand;
 import de.jkrech.test.axon.cmd.UpdateCustomerCommand;
-import de.jkrech.test.axon.cmd.UpdatePaybackCommand;
+import de.jkrech.test.axon.cmd.UpdateSubEntityCommand;
 import de.jkrech.test.axon.event.CustomerNotFoundEvent;
 
 public class CustomerCommandHandler {
@@ -42,22 +42,22 @@ public class CustomerCommandHandler {
     }
 
     @CommandHandler
-    public void createPayback(CreatePaybackCommand cmd) {
+    public void createSubEntity(CreateSubEntityCommand cmd) {
         LOGGER.info("Received cmd: {}", cmd);
         try {
             Aggregate<Customer> customerAggregate = repository.load(cmd.getId());
-            customerAggregate.execute(customer -> customer.createPayback(cmd.getPaybackCustomerNumber()));
+            customerAggregate.execute(customer -> customer.createSubEntity(cmd.getSubEntityNumber()));
         } catch (AggregateNotFoundException exception) {
             eventBus.publish(asEventMessage(new CustomerNotFoundEvent(cmd.getId())));
         }
     }
 
     @CommandHandler
-    public void updatePayback(UpdatePaybackCommand cmd) {
+    public void updateSubEntity(UpdateSubEntityCommand cmd) {
         LOGGER.info("Received cmd: {}", cmd);
         try {
             Aggregate<Customer> customerAggregate = repository.load(cmd.getId());
-            customerAggregate.execute(customer -> customer.updatePayback(cmd.getPaybackCustomerNumber()));
+            customerAggregate.execute(customer -> customer.updateSubEntity(cmd.getSubEntityNumber()));
         } catch (AggregateNotFoundException exception) {
             eventBus.publish(asEventMessage(new CustomerNotFoundEvent(cmd.getId())));
         }
